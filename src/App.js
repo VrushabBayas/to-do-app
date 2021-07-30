@@ -1,11 +1,12 @@
 import "./App.css";
 import Layout from "./Components/Layout/Layout";
+import TodoListContainer from "./Components/ToDos/Container/TodoListContainer";
 
 function App() {
   return (
     <div data-testid="component-app">
       <Layout>
-        <h1>Content...</h1>
+        <TodoListContainer />
       </Layout>
     </div>
   );

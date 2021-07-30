@@ -17,10 +17,14 @@
         "sourceType": "module"
     },
     "plugins": [
-        "react"
+        "react",
+        "react-hooks"
     ],
     "rules": {
         "react/react-in-jsx-scope":"off",
-        "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
+        "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+        "no-debugger":"warn",
+        "react-hooks/rules-of-hooks": "error", 
+        "react-hooks/exhaustive-deps": "warn" 
     }
 }
