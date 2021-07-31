@@ -15,9 +15,14 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.text.secondary,
     display: "flex",
     justifyContent: "start",
+    alignItems: "center",
   },
   item: {
     marginLeft: theme.spacing(1),
+  },
+  itemComplete: {
+    marginLeft: theme.spacing(1),
+    textDecoration: "line-through",
   },
 }));
 function TodoList({ todoList = [], title, onCheckBoxclick }) {
@@ -41,7 +46,9 @@ function TodoList({ todoList = [], title, onCheckBoxclick }) {
             checked={todo.complete}
             onChange={() => handleTodoClick(todo.id)}
           />
-          <div className={classes.item}>{todo.title}</div>
+          <div className={todo.complete ? classes.itemComplete : classes.item}>
+            {todo.title}
+          </div>
         </Paper>
       );
     });
