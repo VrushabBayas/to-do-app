@@ -55,8 +55,8 @@ function TodoList({ todoList = [], title, onCheckBoxclick }) {
   };
   return (
     <div className={classes.root}>
-      <div>{title}</div>
-      <div>{getTodoList()}</div>
+      <div className="mb-1">{title}</div>
+      <div>{!todoList.length ? "List is empty" : getTodoList()}</div>
     </div>
   );
 }
