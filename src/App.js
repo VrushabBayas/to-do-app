@@ -1,13 +1,16 @@
 import "./App.css";
+import ErrorBoundary from "./Components/Error/ErrorBoundry";
 import Layout from "./Components/Layout/Layout";
 import TodoListContainer from "./Components/ToDos/Container/TodoListContainer";
 
 function App() {
   return (
     <div data-testid="component-app">
-      <Layout>
-        <TodoListContainer />
-      </Layout>
+      <ErrorBoundary>
+        <Layout>
+          <TodoListContainer />
+        </Layout>
+      </ErrorBoundary>
     </div>
   );
 }
