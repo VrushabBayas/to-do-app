@@ -5,7 +5,7 @@ import { Grid, makeStyles } from "@material-ui/core";
 import TodoList from "../Components/TodoList";
 
 import {
-  moveTodoDownward,
+  moveTodoDownWard,
   moveTodoUpWard,
   toggleTodo,
 } from "../Actions/todoActions";
@@ -46,8 +46,8 @@ function TodoListContainer() {
   const moveTodo = (direction, id) => {
     if (direction === strings.UP) {
       dispatch(moveTodoUpWard(id));
-    } else {
-      dispatch(moveTodoDownward(id));
+    } else if (direction === strings.DOWN) {
+      dispatch(moveTodoDownWard(id));
     }
   };
   return (

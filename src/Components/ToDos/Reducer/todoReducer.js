@@ -18,17 +18,37 @@ const initialState = {
   ],
 };
 
+const swap = (tempList, index, index2) => {
+  const tmp = tempList[index2];
+  tempList[index2] = tempList[index];
+  tempList[index] = tmp;
+};
 const moveTodoUpward = (id, todoList) => {
   const tempList = [...todoList];
   for (let index = 0; index < tempList.length; index += 1) {
     const element = tempList[index];
     if (element.id === id) {
-      const tmp = tempList[index - 1];
-      tempList[index - 1] = element;
-      tempList[index] = tmp;
+      swap(tempList, index, index - 1);
+      break;
     }
   }
   return tempList;
+};
+const moveTodoDownWard = (id, todoList) => {
+  const tempList = [...todoList];
+  for (let index = 0; index < tempList.length; index += 1) {
+    const element = tempList[index];
+    if (element.id === id) {
+      swap(tempList, index, index + 1);
+      break;
+    }
+  }
+  return tempList;
+};
+const getTodosStatus = (state, id) => {
+  return [...state.completedTodos, ...state.inCompletedTodos].find(
+    (todo) => todo.id === id
+  ).complete;
 };
 export default (state = initialState, { type, payload }) => {
   switch (type) {
@@ -36,12 +56,19 @@ export default (state = initialState, { type, payload }) => {
       return { todoList: state.todoList };
     case todoActions.TOGGLE_TODO:
       return { ...state, ...payload };
+    case todoActions.MOVE_TO_DO_DOWN_WARD: {
+      const isCompleted = getTodosStatus(state, payload.id);
+      const todos = isCompleted ? state.completedTodos : state.inCompletedTodos;
+      const listToBeUpdate = isCompleted
+        ? "completedTodos"
+        : "inCompletedTodos";
+      return {
+        ...state,
+        [listToBeUpdate]: moveTodoDownWard(payload.id, todos),
+      };
+    }
     case todoActions.MOVE_TO_DO_UP_WARD: {
-      const isCompleted = [
-        ...state.completedTodos,
-        ...state.inCompletedTodos,
-      ].find((todo) => todo.id === payload.id).complete;
-
+      const isCompleted = getTodosStatus(state, payload.id);
       const todos = isCompleted ? state.completedTodos : state.inCompletedTodos;
       const listToBeUpdate = isCompleted
         ? "completedTodos"

@@ -17,7 +17,7 @@ export const moveTodoUpWard = (id) => ({
   payload: { id },
 });
 
-export const moveTodoDownward = (id) => ({
+export const moveTodoDownWard = (id) => ({
   type: todoActions.MOVE_TO_DO_DOWN_WARD,
   payload: { id },
 });
