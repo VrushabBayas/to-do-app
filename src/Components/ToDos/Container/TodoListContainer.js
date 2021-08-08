@@ -1,10 +1,15 @@
-import React, { useMemo } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { Grid, makeStyles } from "@material-ui/core";
 import TodoList from "../Components/TodoList";
 
-import { toggleTodo } from "../Actions/todoActions";
+import {
+  moveTodoDownward,
+  moveTodoUpWard,
+  toggleTodo,
+} from "../Actions/todoActions";
+import strings from "../../../Utils/Constants";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -15,26 +20,35 @@ const useStyles = makeStyles((theme) => ({
 }));
 function TodoListContainer() {
   const dispatch = useDispatch();
-  const { todoList } = useSelector((state) => state.todos);
+  const { completedTodos, inCompletedTodos } = useSelector(
+    (state) => state.todos
+  );
   const classes = useStyles();
 
-  const completedTodo = useMemo(() => {
-    return todoList.filter((todo) => !todo.complete);
-  }, [todoList]);
-  const inCompletedTodo = useMemo(() => {
-    return todoList.filter((todo) => todo.complete);
-  }, [todoList]);
-
   const onCheckBoxclick = (id) => {
-    const updatedTodoList = [...todoList].map((todo) => {
-      if (todo.id === id) {
-        const obj = { ...todo };
-        obj.complete = !todo.complete;
-        return obj;
+    const updatedTodoList = [...completedTodos, ...inCompletedTodos].map(
+      (todo) => {
+        if (todo.id === id) {
+          const obj = { ...todo };
+          obj.complete = !todo.complete;
+          return obj;
+        }
+        return todo;
       }
-      return todo;
-    });
+    );
     dispatch(toggleTodo(updatedTodoList));
+  };
+  /**
+   *
+   * @param {Strings} direction - used to check which arrow has been clicked
+   * @param {number} id  -  to move the todo with given id
+   */
+  const moveTodo = (direction, id) => {
+    if (direction === strings.UP) {
+      dispatch(moveTodoUpWard(id));
+    } else {
+      dispatch(moveTodoDownward(id));
+    }
   };
   return (
     <div data-testid="component-todo-container" className={classes.root}>
@@ -42,15 +56,17 @@ function TodoListContainer() {
         <Grid item xs={6}>
           <TodoList
             title="To-Do"
-            todoList={completedTodo}
+            todoList={inCompletedTodos}
             onCheckBoxclick={onCheckBoxclick}
+            moveTodo={moveTodo}
           />
         </Grid>
         <Grid item xs={6}>
           <TodoList
             title="Completed"
-            todoList={inCompletedTodo}
+            todoList={completedTodos}
             onCheckBoxclick={onCheckBoxclick}
+            moveTodo={moveTodo}
           />
         </Grid>
       </Grid>
