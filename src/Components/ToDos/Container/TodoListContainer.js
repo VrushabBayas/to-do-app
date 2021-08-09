@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
-import { Grid, makeStyles } from "@material-ui/core";
+import AddIcon from "@material-ui/icons/Add";
+import { Button, Grid, makeStyles } from "@material-ui/core";
 import TodoList from "../Components/TodoList";
 
 import {
@@ -11,6 +11,7 @@ import {
   sortTodosAction,
 } from "../Actions/todoActions";
 import strings from "../../../Utils/Constants";
+import Modal from "../../Common/Modal/Modal";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,6 +22,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function TodoListContainer() {
+  const [showModal, setShowModal] = useState(false);
   const dispatch = useDispatch();
   const { completedTodos, inCompletedTodos } = useSelector(
     (state) => state.todos
@@ -71,8 +73,29 @@ function TodoListContainer() {
   const sortTodos = (status) => (order) => {
     dispatch(sortTodosAction(status, order));
   };
+
+  const handleOnAddtodo = () => {
+    setShowModal(true);
+  };
+  const onSaveTodo = (title) => {
+    alert(title);
+  };
+  const handleToggle = () => {
+    setShowModal(!showModal);
+  };
   return (
     <div data-testid="component-todo-container" className={classes.root}>
+      <Modal
+        show={showModal}
+        onSaveTodo={onSaveTodo}
+        handleToggle={handleToggle}
+      />
+      <Grid container>
+        <Button onClick={handleOnAddtodo}>
+          <AddIcon />
+          <span>Add</span>
+        </Button>
+      </Grid>
       <Grid container>
         <Grid item xs={6}>
           <TodoList
