@@ -4,6 +4,11 @@ import PropTypes from "prop-types";
 import { v4 as uuidv4 } from "uuid";
 import { Paper, makeStyles, Checkbox, Button } from "@material-ui/core";
 import { ArrowDownward, ArrowUpward } from "@material-ui/icons";
+import {
+  SortAscendingOutlined,
+  SortDescendingOutlined,
+} from "@ant-design/icons";
+
 import strings from "../../../Utils/Constants";
 
 const useStyles = makeStyles((theme) => ({
@@ -28,6 +33,14 @@ const useStyles = makeStyles((theme) => ({
   },
   buttons: {
     margin: "auto",
+  },
+  titleWrapper: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  sortingIcons: {
+    fontSize: "25px",
   },
 }));
 function TodoList({ todoList = [], title, onCheckBoxclick, moveTodo }) {
@@ -82,7 +95,17 @@ function TodoList({ todoList = [], title, onCheckBoxclick, moveTodo }) {
   };
   return (
     <div className={classes.root}>
-      <div className="mb-1">{title}</div>
+      <div className={classes.titleWrapper}>
+        <div>{title}</div>
+        <div>
+          <Button onClick={() => {}}>
+            <SortAscendingOutlined className={classes.sortingIcons} />
+          </Button>
+          <Button onClick={() => {}}>
+            <SortDescendingOutlined className={classes.sortingIcons} />
+          </Button>
+        </div>
+      </div>
       <div>{!todoList.length ? "List is empty" : getTodoList()}</div>
     </div>
   );
