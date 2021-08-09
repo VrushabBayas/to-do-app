@@ -9,7 +9,7 @@ const todoActions = {
 
 export const toggleTodo = (todoList) => ({
   type: todoActions.TOGGLE_TODO,
-  payload: { todoList },
+  payload: { ...todoList },
 });
 
 export const moveTodoUpWard = (id) => ({

@@ -18,6 +18,7 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(4),
   },
 }));
+
 function TodoListContainer() {
   const dispatch = useDispatch();
   const { completedTodos, inCompletedTodos } = useSelector(
@@ -26,17 +27,33 @@ function TodoListContainer() {
   const classes = useStyles();
 
   const onCheckBoxclick = (id) => {
-    const updatedTodoList = [...completedTodos, ...inCompletedTodos].map(
-      (todo) => {
-        if (todo.id === id) {
-          const obj = { ...todo };
-          obj.complete = !todo.complete;
-          return obj;
-        }
-        return todo;
-      }
+    let updatedTodoListInComplete = [];
+    let updatedTodoListcomplete = [];
+    // find out todo to update
+    const todoToUpdate = [...completedTodos, ...inCompletedTodos].find(
+      (todo) => todo.id === id
     );
-    dispatch(toggleTodo(updatedTodoList));
+    // chnage it's status
+    const updatedTodo = { ...todoToUpdate, complete: !todoToUpdate.complete };
+
+    if (todoToUpdate.complete) {
+      // remove todo from complted list and push it to in completed
+      updatedTodoListcomplete = completedTodos.filter((item) => item.id !== id);
+      updatedTodoListInComplete = [...inCompletedTodos, updatedTodo];
+    } else {
+      // remove todo from in-complted list and push it to  completed list
+      updatedTodoListInComplete = inCompletedTodos.filter(
+        (item) => item.id !== id
+      );
+      updatedTodoListcomplete = [...completedTodos, updatedTodo];
+    }
+
+    dispatch(
+      toggleTodo({
+        completedTodos: updatedTodoListcomplete,
+        inCompletedTodos: updatedTodoListInComplete,
+      })
+    );
   };
   /**
    *
