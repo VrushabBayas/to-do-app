@@ -8,6 +8,7 @@ import {
   moveTodoDownWard,
   moveTodoUpWard,
   toggleTodo,
+  sortTodosAction,
 } from "../Actions/todoActions";
 import strings from "../../../Utils/Constants";
 
@@ -67,6 +68,9 @@ function TodoListContainer() {
       dispatch(moveTodoDownWard(id));
     }
   };
+  const sortTodos = (status) => (order) => {
+    dispatch(sortTodosAction(status, order));
+  };
   return (
     <div data-testid="component-todo-container" className={classes.root}>
       <Grid container>
@@ -76,6 +80,7 @@ function TodoListContainer() {
             todoList={inCompletedTodos}
             onCheckBoxclick={onCheckBoxclick}
             moveTodo={moveTodo}
+            sortTodos={sortTodos(false)}
           />
         </Grid>
         <Grid item xs={6}>
@@ -84,6 +89,7 @@ function TodoListContainer() {
             todoList={completedTodos}
             onCheckBoxclick={onCheckBoxclick}
             moveTodo={moveTodo}
+            sortTodos={sortTodos(true)}
           />
         </Grid>
       </Grid>

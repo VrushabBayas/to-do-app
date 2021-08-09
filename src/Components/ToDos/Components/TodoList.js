@@ -43,7 +43,13 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "25px",
   },
 }));
-function TodoList({ todoList = [], title, onCheckBoxclick, moveTodo }) {
+function TodoList({
+  todoList = [],
+  title,
+  onCheckBoxclick,
+  moveTodo,
+  sortTodos,
+}) {
   const classes = useStyles();
 
   /**
@@ -55,8 +61,21 @@ function TodoList({ todoList = [], title, onCheckBoxclick, moveTodo }) {
     onCheckBoxclick(id);
   };
 
+  /**
+   * @method - handleOnArrowKey
+   * @param {Strings} direction - direction to move todo
+   * @param {Number} id - id of selected todo
+   * @description - move todo in speciied direction
+   */
   const handleOnArrowKey = (direction, id) => {
     moveTodo(direction, id);
+  };
+  /**
+   * @method - handleOnSortClick
+   * @param {String} order - sort todo in selected order
+   */
+  const handleOnSortClick = (order) => {
+    sortTodos(order);
   };
   const getTodoList = () => {
     return todoList.map((todo, index) => {
@@ -98,10 +117,10 @@ function TodoList({ todoList = [], title, onCheckBoxclick, moveTodo }) {
       <div className={classes.titleWrapper}>
         <div>{title}</div>
         <div>
-          <Button onClick={() => {}}>
+          <Button onClick={() => handleOnSortClick(strings.ASC)}>
             <SortAscendingOutlined className={classes.sortingIcons} />
           </Button>
-          <Button onClick={() => {}}>
+          <Button onClick={() => handleOnSortClick(strings.DSE)}>
             <SortDescendingOutlined className={classes.sortingIcons} />
           </Button>
         </div>
@@ -116,6 +135,7 @@ TodoList.propTypes = {
   title: PropTypes.string.isRequired,
   onCheckBoxclick: PropTypes.func.isRequired,
   moveTodo: PropTypes.func.isRequired,
+  sortTodos: PropTypes.func.isRequired,
 };
 
 export default TodoList;

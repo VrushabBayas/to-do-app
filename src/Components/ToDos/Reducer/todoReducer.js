@@ -1,4 +1,5 @@
 /* eslint-disable no-param-reassign */
+import strings from "../../../Utils/Constants";
 import todoActions from "../Actions/todoActions";
 
 const initialState = {
@@ -33,6 +34,17 @@ const moveTodoUpward = (id, todoList) => {
     }
   }
   return tempList;
+};
+const sortTodoByOrder = (order, todoList) => {
+  const tmpTodoList = [...todoList];
+  if (strings.ASC === order) {
+    return tmpTodoList.sort((a, b) =>
+      a.title.toLowerCase() < b.title.toLowerCase() ? -1 : 1
+    );
+  }
+  return tmpTodoList.sort((a, b) =>
+    a.title.toLowerCase() > b.title.toLowerCase() ? -1 : 1
+  );
 };
 const moveTodoDownWard = (id, todoList) => {
   const tempList = [...todoList];
@@ -74,6 +86,13 @@ export default (state = initialState, { type, payload }) => {
         ? "completedTodos"
         : "inCompletedTodos";
       return { ...state, [listToBeUpdate]: moveTodoUpward(payload.id, todos) };
+    }
+    case todoActions.SORT_TODO: {
+      const { complete, order } = payload;
+      const todos = complete ? state.completedTodos : state.inCompletedTodos;
+      const listToBeUpdate = complete ? "completedTodos" : "inCompletedTodos";
+
+      return { ...state, [listToBeUpdate]: sortTodoByOrder(order, todos) };
     }
     default:
       return state;

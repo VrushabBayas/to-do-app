@@ -5,6 +5,7 @@ const todoActions = {
   GET_TODOS: "GET_TODOS",
   MOVE_TO_DO_UP_WARD: "MOVE_TO_DO_UP_WARD",
   MOVE_TO_DO_DOWN_WARD: "MOVE_TO_DO_DOWN_WARD",
+  SORT_TODO: "SORT_TODO",
 };
 
 export const toggleTodo = (todoList) => ({
@@ -34,6 +35,10 @@ export const addTodo = (id) => ({
 export const deleteTodo = (id) => ({
   type: todoActions.ADD_TODO,
   payload: { id },
+});
+export const sortTodosAction = (status, order) => ({
+  type: todoActions.SORT_TODO,
+  payload: { complete: status, order },
 });
 
 export default todoActions;
