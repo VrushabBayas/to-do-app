@@ -27,11 +27,6 @@ export const getTodos = () => ({
   type: todoActions.GET_TODOS,
 });
 
-export const addTodo = (id) => ({
-  type: todoActions.ADD_TODO,
-  payload: { id },
-});
-
 export const deleteTodo = (id) => ({
   type: todoActions.ADD_TODO,
   payload: { id },
@@ -39,6 +34,11 @@ export const deleteTodo = (id) => ({
 export const sortTodosAction = (status, order) => ({
   type: todoActions.SORT_TODO,
   payload: { complete: status, order },
+});
+
+export const addTodo = (title) => ({
+  type: todoActions.ADD_TODO,
+  payload: { title },
 });
 
 export default todoActions;

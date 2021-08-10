@@ -1,4 +1,6 @@
 /* eslint-disable no-param-reassign */
+import { v4 as uuidv4 } from "uuid";
+
 import strings from "../../../Utils/Constants";
 import todoActions from "../Actions/todoActions";
 
@@ -45,6 +47,11 @@ const sortTodoByOrder = (order, todoList) => {
   return tmpTodoList.sort((a, b) =>
     a.title.toLowerCase() > b.title.toLowerCase() ? -1 : 1
   );
+};
+const updateIncompleteTodoList = (title, todoList = []) => {
+  const tmpTodoList = [...todoList];
+  const todoObj = { id: uuidv4(), title, complete: false };
+  return [...tmpTodoList, todoObj];
 };
 const moveTodoDownWard = (id, todoList) => {
   const tempList = [...todoList];
@@ -93,6 +100,16 @@ export default (state = initialState, { type, payload }) => {
       const listToBeUpdate = complete ? "completedTodos" : "inCompletedTodos";
 
       return { ...state, [listToBeUpdate]: sortTodoByOrder(order, todos) };
+    }
+    case todoActions.ADD_TODO: {
+      const { title } = payload;
+      return {
+        ...state,
+        inCompletedTodos: updateIncompleteTodoList(
+          title,
+          state.inCompletedTodos
+        ),
+      };
     }
     default:
       return state;

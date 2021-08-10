@@ -9,6 +9,7 @@ import {
   moveTodoUpWard,
   toggleTodo,
   sortTodosAction,
+  addTodo,
 } from "../Actions/todoActions";
 import strings from "../../../Utils/Constants";
 import Modal from "../../Common/Modal/Modal";
@@ -78,7 +79,7 @@ function TodoListContainer() {
     setShowModal(true);
   };
   const onSaveTodo = (title) => {
-    alert(title);
+    dispatch(addTodo(title));
   };
   const handleToggle = () => {
     setShowModal(!showModal);
