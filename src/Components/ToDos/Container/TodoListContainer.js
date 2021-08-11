@@ -10,6 +10,7 @@ import {
   toggleTodo,
   sortTodosAction,
   addTodo,
+  deleteTodoById,
 } from "../Actions/todoActions";
 import strings from "../../../Utils/Constants";
 import Modal from "../../Common/Modal/Modal";
@@ -75,6 +76,10 @@ function TodoListContainer() {
     dispatch(sortTodosAction(status, order));
   };
 
+  const deleteTodo = (status) => (id) => {
+    dispatch(deleteTodoById(status, id));
+  };
+
   const handleOnAddtodo = () => {
     setShowModal(true);
   };
@@ -105,6 +110,7 @@ function TodoListContainer() {
             onCheckBoxclick={onCheckBoxclick}
             moveTodo={moveTodo}
             sortTodos={sortTodos(false)}
+            deleteTodo={deleteTodo(false)}
           />
         </Grid>
         <Grid item xs={6}>
@@ -114,6 +120,7 @@ function TodoListContainer() {
             onCheckBoxclick={onCheckBoxclick}
             moveTodo={moveTodo}
             sortTodos={sortTodos(true)}
+            deleteTodo={deleteTodo(true)}
           />
         </Grid>
       </Grid>

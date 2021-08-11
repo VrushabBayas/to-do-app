@@ -1,6 +1,6 @@
 const todoActions = {
   ADD_TODO: "ADD_TODO",
-  DELETE_TODO: "ADD_TODO",
+  DELETE_TODO: "DELETE_TODO",
   TOGGLE_TODO: "TOGGLE_TODO",
   GET_TODOS: "GET_TODOS",
   MOVE_TO_DO_UP_WARD: "MOVE_TO_DO_UP_WARD",
@@ -27,13 +27,14 @@ export const getTodos = () => ({
   type: todoActions.GET_TODOS,
 });
 
-export const deleteTodo = (id) => ({
-  type: todoActions.ADD_TODO,
-  payload: { id },
-});
 export const sortTodosAction = (status, order) => ({
   type: todoActions.SORT_TODO,
   payload: { complete: status, order },
+});
+
+export const deleteTodoById = (status, id) => ({
+  type: todoActions.DELETE_TODO,
+  payload: { complete: status, id },
 });
 
 export const addTodo = (title) => ({

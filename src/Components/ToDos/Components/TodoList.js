@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from "uuid";
 import { Paper, makeStyles, Checkbox, Button } from "@material-ui/core";
 import { ArrowDownward, ArrowUpward } from "@material-ui/icons";
 import {
+  DeleteFilled,
   SortAscendingOutlined,
   SortDescendingOutlined,
 } from "@ant-design/icons";
@@ -26,6 +27,7 @@ const useStyles = makeStyles((theme) => ({
   },
   item: {
     marginLeft: theme.spacing(1),
+    display: "flex",
   },
   itemComplete: {
     marginLeft: theme.spacing(1),
@@ -49,6 +51,7 @@ function TodoList({
   onCheckBoxclick,
   moveTodo,
   sortTodos,
+  deleteTodo,
 }) {
   const classes = useStyles();
 
@@ -76,6 +79,13 @@ function TodoList({
    */
   const handleOnSortClick = (order) => {
     sortTodos(order);
+  };
+  /**
+   * @method - handleOnSortClick
+   * @param {String} order - sort todo in selected order
+   */
+  const handleOnDeleteKey = (id) => {
+    deleteTodo(id);
   };
   const getTodoList = () => {
     return todoList.map((todo, index) => {
@@ -107,6 +117,11 @@ function TodoList({
                 <ArrowDownward />
               </Button>
             </div>
+            <div className={classes.buttons}>
+              <Button onClick={() => handleOnDeleteKey(todo.id)}>
+                <DeleteFilled />
+              </Button>
+            </div>
           </div>
         </Paper>
       );
@@ -136,6 +151,7 @@ TodoList.propTypes = {
   onCheckBoxclick: PropTypes.func.isRequired,
   moveTodo: PropTypes.func.isRequired,
   sortTodos: PropTypes.func.isRequired,
+  deleteTodo: PropTypes.func.isRequired,
 };
 
 export default TodoList;

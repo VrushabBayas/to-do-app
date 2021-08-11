@@ -111,6 +111,17 @@ export default (state = initialState, { type, payload }) => {
         ),
       };
     }
+    case todoActions.DELETE_TODO: {
+      const { complete, id } = payload;
+      const todos = complete
+        ? [...state.completedTodos]
+        : [...state.inCompletedTodos];
+      const listToBeUpdate = complete ? "completedTodos" : "inCompletedTodos";
+      return {
+        ...state,
+        [listToBeUpdate]: todos.filter((todo) => todo.id !== id),
+      };
+    }
     default:
       return state;
   }
