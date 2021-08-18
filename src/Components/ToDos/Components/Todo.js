@@ -1,12 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Paper, makeStyles, Checkbox, Button } from "@material-ui/core";
+import { Paper, makeStyles, Button } from "@material-ui/core";
 import { ArrowDownward, ArrowUpward } from "@material-ui/icons";
 
 import { DeleteFilled } from "@ant-design/icons";
 
 import { v4 as uuidv4 } from "uuid";
 import strings from "../../../Utils/Constants";
+import CheckBox from "./common/checkbox/checkBox";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -20,10 +21,6 @@ const useStyles = makeStyles((theme) => ({
   item: {
     marginLeft: theme.spacing(1),
     display: "flex",
-  },
-  itemComplete: {
-    marginLeft: theme.spacing(1),
-    textDecoration: "line-through",
   },
   buttons: {
     margin: "auto",
@@ -41,15 +38,13 @@ function Todo({
   return (
     <div>
       <Paper className={classes.paper} key={uuidv4()}>
-        <Checkbox
+        <CheckBox
           color="primary"
           inputProps={{ "aria-label": "secondary checkbox" }}
           checked={todo.complete}
           onChange={() => handleTodoClick(todo.id)}
+          lable={todo.title}
         />
-        <div className={todo.complete ? classes.itemComplete : classes.item}>
-          {todo.title}
-        </div>
         <div className={classes.item}>
           <div className={classes.buttons}>
             <Button

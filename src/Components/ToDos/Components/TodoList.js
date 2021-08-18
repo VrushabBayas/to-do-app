@@ -72,6 +72,7 @@ function TodoList({
     return todoList.map((todo, index) => {
       return (
         <Todo
+          todoListLength={todoList.length}
           todo={todo}
           index={index}
           handleOnDeleteKey={handleOnDeleteKey}
