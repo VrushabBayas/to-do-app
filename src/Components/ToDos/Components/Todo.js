@@ -31,7 +31,7 @@ function Todo({
   return (
     <Paper className={classes.paper} key={uuidv4()}>
       <Grid container>
-        <Grid item xs={9}>
+        <Grid item xs={7}>
           <CheckBox
             color="primary"
             inputProps={{ "aria-label": "secondary checkbox" }}
@@ -40,7 +40,7 @@ function Todo({
             lable={todo.title}
           />
         </Grid>
-        <Grid item xs={3} className={classes.butonGroup}>
+        <Grid item xs={5} className={classes.butonGroup}>
           <CustomButton
             onClick={() => handleOnArrowKey(strings.UP, todo.id)}
             disabled={index === 0}

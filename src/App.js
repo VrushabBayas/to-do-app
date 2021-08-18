@@ -5,7 +5,7 @@ import TodoListContainer from "./Components/ToDos/Container/TodoListContainer";
 
 function App() {
   return (
-    <div data-testid="component-app">
+    <div data-testid="component-app" className="container">
       <ErrorBoundary>
         <Layout>
           <TodoListContainer />
