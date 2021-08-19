@@ -1,5 +1,5 @@
-import { render } from "@testing-library/react";
-import TodoList from "../TodoList";
+import { render, screen } from "@testing-library/react";
+import TodoList from "../../../ToDos/Components/TodoList";
 
 const defaultProps = {
   todoList: [],
@@ -18,8 +18,10 @@ const setup = (props = {}) => {
   const setUpProps = { ...defaultProps, ...props };
   return render(<TodoList {...setUpProps} />);
 };
-describe("[TodoList-Component]", () => {
-  test("should display complete todo list is empty if ther is no data to show", () => {
-    setup();
+describe("No Data Component", () => {
+  test("should display text List is Empty", () => {
+    setup({ todoList: [] });
+    const noData = screen.getByText("List is empty");
+    expect(noData.textContent).toBe("List is empty");
   });
 });

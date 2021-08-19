@@ -10,6 +10,7 @@ import {
 
 import strings from "../../../Utils/Constants";
 import Todo from "./Todo";
+import NoData from "../../Common/NoData/NoData";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -95,7 +96,9 @@ function TodoList({
           </Button>
         </div>
       </div>
-      <div>{!todoList.length ? "List is empty" : getTodoList()}</div>
+      <div>
+        {!todoList.length ? <NoData title="List is empty" /> : getTodoList()}
+      </div>
     </div>
   );
 }
