@@ -73,6 +73,7 @@ function TodoList({
     return todoList.map((todo, index) => {
       return (
         <Todo
+          key={todo.id}
           todoListLength={todoList.length}
           todo={todo}
           index={index}
@@ -86,7 +87,7 @@ function TodoList({
   return (
     <div className={classes.root}>
       <div className={classes.titleWrapper}>
-        <div>{title}</div>
+        <div data-testid="todo-title">{title}</div>
         <div>
           <Button onClick={() => handleOnSortClick(strings.ASC)}>
             <SortAscendingOutlined className={classes.sortingIcons} />
@@ -96,9 +97,12 @@ function TodoList({
           </Button>
         </div>
       </div>
-      <div>
-        {!todoList.length ? <NoData title="List is empty" /> : getTodoList()}
-      </div>
+
+      {!todoList.length ? (
+        <NoData title="List is empty" />
+      ) : (
+        <div data-testid="todo-list">{getTodoList()} </div>
+      )}
     </div>
   );
 }

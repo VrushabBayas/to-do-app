@@ -71,7 +71,7 @@ Todo.propTypes = {
   handleOnDeleteKey: PropTypes.func.isRequired,
   handleOnArrowKey: PropTypes.func.isRequired,
   handleTodoClick: PropTypes.func.isRequired,
-  index: PropTypes.bool.isRequired,
+  index: PropTypes.number.isRequired,
   todoListLength: PropTypes.number.isRequired,
 };
 

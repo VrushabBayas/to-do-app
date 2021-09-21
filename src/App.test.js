@@ -1,14 +1,17 @@
 import { render, cleanup } from "@testing-library/react";
 import { createMemoryHistory } from "history";
+import { Provider } from "react-redux";
 import { Router } from "react-router-dom";
-
+import store from "./Reducer/configureStore";
 import App from "./App";
 
 const setup = (history) => {
   return render(
-    <Router history={history}>
-      <App />
-    </Router>
+    <Provider store={store}>
+      <Router history={history}>
+        <App />
+      </Router>
+    </Provider>
   );
 };
 describe("App", () => {
